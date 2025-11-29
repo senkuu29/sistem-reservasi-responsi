@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void tampilkan_jadwal_asprak() {
+
+}
+
+void daftar_responsi() {
+
+}
+
+void tampilkan_cari_mahasiswa() {
+
+}
+
+void input_jadwal_asprak() {
+
+}
+
+
+void tampilkan_menu () {
+  printf("\n=== SISTEM PENDAFTARAN RESPONSI ===\n");
+  printf("1. Lihat Jadwal Asprak\n");
+  printf("2. Daftar Responsi (Mahasiswa)\n");
+  printf("3. Cari Mahasiswa\n");
+  printf("4. Input Jadwal Responsi (Asprak)\n");
+  printf("5. Keluar\n");
+  printf("Pilihan Anda: ");
+}
+
+int main() {
+    int pilihan;
+
+    printf("=========================================\n");
+    printf("\tSISTEM RESERVASI RESPONSI\n");
+    printf("=========================================\n");
+  
+  do {
+      tampilkan_menu();
+      scanf("%d", &pilihan);
+
+      switch (pilihan) {
+          case 1:
+            tampilkan_jadwal_asprak();
+            break;
+          case 2:
+            daftar_responsi();
+            break;
+          case 3:
+            tampilkan_cari_mahasiswa();
+            break;
+          case 4:
+            input_jadwal_asprak();
+            break;
+          case 5:
+            printf("\nTerima kasih! Program selesai.\n");
+            break;
+          default:
+          printf("Pilihan tidak valid! Silakan pilih 1-5.\n");
+    }
+  } while (pilihan != 5);
+  
+  return 0;
+}
