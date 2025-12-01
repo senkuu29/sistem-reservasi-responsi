@@ -23,8 +23,18 @@ typedef struct {
   char tempat[20];
 } Mahasiswa;
 
+Asprak aspraks[MAX_ASPRAK];
+int jumlah_asprak = 0;
 
 
+void init_data_asprak();
+void input_jadwal_asprak();
+
+void init_data_asprak() {
+  strcpy(aspraks[0].nama, "Deden ahmad");
+  strcpy(aspraks[1].nama, "Daffa"); 
+  jumlah_asprak = 2;
+}
 
 void tampilkan_jadwal_asprak() {
 
@@ -39,6 +49,12 @@ void tampilkan_cari_mahasiswa() {
 }
 
 void input_jadwal_asprak() {
+  printf("\n=== INPUT JADWAL RESPONSI===\n");
+
+  printf("Pilih Asprak:\n");
+  for (int i = 0; i < jumlah_asprak; i++) {
+    printf("%d. %s\n",i+1, aspraks[i].nama);
+  }
 
 }
 
@@ -54,6 +70,9 @@ void tampilkan_menu () {
 }
 
 int main() {
+    //pemanggilan fungsi nama" data asprak
+    init_data_asprak();
+
     int pilihan;
 
     printf("=========================================\n");
