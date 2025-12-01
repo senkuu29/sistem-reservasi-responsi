@@ -2,6 +2,30 @@
 #include <string.h>
 #include <ctype.h>
 
+#define MAX_ASPRAK 10
+#define MAX_MAHASISWA 50
+#define MAX_NAMA 50
+#define MAX_MK 30
+
+typedef struct {
+  char nama[MAX_ASPRAK];
+  char mata_kuliah[MAX_MK];
+  char tanggal[11];
+  char jam[6];
+  char tempat[20];
+} Asprak;
+
+typedef struct {
+  char nama[MAX_ASPRAK];
+  char mata_kuliah[MAX_MK];
+  char tanggal[11];
+  char jam[6];
+  char tempat[20];
+} Mahasiswa;
+
+
+
+
 void tampilkan_jadwal_asprak() {
 
 }
