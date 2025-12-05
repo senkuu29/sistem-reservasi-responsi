@@ -81,6 +81,10 @@ void input_jadwal_asprak() {
     for(int i = 0; i < jumlah_mk; i++) {
         printf("%d. %s\n", i+1, mata_kuliah_list[i]);
     }
+
+  int pilihan_mk;
+    printf("Pilihan (1-%d): ", jumlah_mk);
+    scanf("%d", &pilihan_mk);
 }
 
 
