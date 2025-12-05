@@ -90,6 +90,21 @@ void input_jadwal_asprak() {
         printf("Pilihan tidak valid!\n");
         return;
     }
+
+    printf("Tanggal (DD-MM-YYYY): ");
+    scanf("%s", aspraks[index_asprak].tanggal);
+
+    printf("Jam (HH:MM): ");
+    scanf("%s", aspraks[index_asprak].jam);
+
+    printf("Tempat: ");
+    getchar();
+    fgets(aspraks[index_asprak].tempat, 20, stdin);
+
+    printf("\nyang di inputkan\n");
+    printf("%s\n", aspraks[index_asprak].tanggal);
+    printf("%s\n", aspraks[index_asprak].jam);
+    printf("%s", aspraks[index_asprak].tempat);
 }
 
 
