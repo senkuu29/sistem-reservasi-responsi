@@ -26,6 +26,15 @@ typedef struct {
 Asprak aspraks[MAX_ASPRAK];
 int jumlah_asprak = 0;
 
+char mata_kuliah_list[][MAX_MK] = {
+    "Alpro",
+    "Kalkulus", 
+    "Basdat",
+    "Peweb",
+    "pbo"
+};
+int jumlah_mk = 5;
+
 
 void init_data_asprak();
 void input_jadwal_asprak();
