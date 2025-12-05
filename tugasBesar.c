@@ -85,6 +85,11 @@ void input_jadwal_asprak() {
   int pilihan_mk;
     printf("Pilihan (1-%d): ", jumlah_mk);
     scanf("%d", &pilihan_mk);
+
+    if(pilihan_mk < 1 || pilihan_mk > jumlah_mk) {
+        printf("Pilihan tidak valid!\n");
+        return;
+    }
 }
 
 
