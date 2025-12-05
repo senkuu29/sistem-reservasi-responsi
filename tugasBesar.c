@@ -64,6 +64,9 @@ void input_jadwal_asprak() {
       printf("Pilihan tidak valid!\n");
       return;
   }
+
+  int index_asprak = pilihan_asprak - 1;
+  printf("Asprak terpilih: %s\n", aspraks[index_asprak].nama);
 }
 
 
