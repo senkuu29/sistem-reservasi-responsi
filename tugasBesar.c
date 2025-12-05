@@ -76,6 +76,11 @@ void input_jadwal_asprak() {
 
   int index_asprak = pilihan_asprak - 1;
   printf("Asprak terpilih: %s\n", aspraks[index_asprak].nama);
+
+  printf("\nPilih Mata Kuliah yang diajar:\n");
+    for(int i = 0; i < jumlah_mk; i++) {
+        printf("%d. %s\n", i+1, mata_kuliah_list[i]);
+    }
 }
 
 
