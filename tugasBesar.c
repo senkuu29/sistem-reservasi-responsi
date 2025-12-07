@@ -95,6 +95,15 @@ void input_jadwal_asprak() {
   int index_asprak = pilihan_asprak - 1;
   printf("asprak terpilih: %s\n", aspraks[index_asprak].nama);
 
+   // perbaikan(dari teh belva) tidak boleh menginputkan lagi jadwal setelah sudah ada datanya
+  if (strlen(aspraks[index_asprak].mata_kuliah) > 0) {
+      printf("\n--- PERINGATAN ---\n");
+      printf("Data jadwal responsi sudah ada untuk Asprak %s!\n", 
+             aspraks[index_asprak].nama);
+      printf("Tidak boleh menginputkan lagi!!\n");
+      return;
+  }
+
   printf("\nPilih Mata Kuliah yang diajar:\n");
     for(int i = 0; i < jumlah_mk; i++) {
         printf("%d. %s\n", i+1, mata_kuliah_list[i]);
