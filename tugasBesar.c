@@ -39,6 +39,9 @@ int jumlah_mk = 5;
 
 void init_data_asprak();
 void input_jadwal_asprak();
+void tampilkan_jadwal_asprak();
+
+
 
 void init_data_asprak() {
   strcpy(aspraks[0].nama, "Deden");
@@ -47,7 +50,21 @@ void init_data_asprak() {
 }
 
 void tampilkan_jadwal_asprak() {
-
+  printf("================================================================\n");
+  printf("                       JADWAL ASPRAK\n");
+  printf("================================================================\n");
+  printf("| Nama Asprak | Mata Kuliah | Kuota | Tanggal    | Jam   | Tempat\n");
+    for(int i = 0; i < jumlah_asprak; i++) {
+        if(strlen(aspraks[i].mata_kuliah) > 0) {
+          printf("| %-11s | %-11s | %-5d | %-7s | %-3s | %s",
+            aspraks[i].nama, 
+            aspraks[i].mata_kuliah,
+            aspraks[i].kuota,
+            aspraks[i].tanggal, 
+            aspraks[i].jam, 
+            aspraks[i].tempat); }
+    }
+  
 }
 
 void daftar_responsi() {
@@ -92,6 +109,7 @@ void input_jadwal_asprak() {
         return;
     }
 
+    // menyalin nama MK yang di pilih oleh asprak
     strcpy(aspraks[index_asprak].mata_kuliah, mata_kuliah_list[pilihan_mk - 1]);
 
     printf("\nBatas Kuota Mahasiswa (Angka)\t: ");
@@ -115,7 +133,6 @@ void input_jadwal_asprak() {
     printf("Jam          : %s\n", aspraks[index_asprak].jam);
     printf("Tempat       : %s\n", aspraks[index_asprak].tempat);
 }
-
 
 void tampilkan_menu () {
   printf("\n=== SISTEM PENDAFTARAN RESPONSI ===\n");
