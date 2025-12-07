@@ -13,14 +13,15 @@ typedef struct {
   char tanggal[11];
   char jam[6];
   char tempat[20];
+  int kuota;
 } Asprak;
 
 typedef struct {
-  char nama[MAX_ASPRAK];
-  char mata_kuliah[MAX_MK];
-  char tanggal[11];
-  char jam[6];
-  char tempat[20];
+    char nama[MAX_NAMA];
+    char mata_kuliah_dipilih[MAX_MK];
+    char asprak[MAX_NAMA];
+    char tanggal[11];
+    char jam[6];
 } Mahasiswa;
 
 Asprak aspraks[MAX_ASPRAK];
@@ -40,7 +41,7 @@ void init_data_asprak();
 void input_jadwal_asprak();
 
 void init_data_asprak() {
-  strcpy(aspraks[0].nama, "Deden ahmad");
+  strcpy(aspraks[0].nama, "Deden");
   strcpy(aspraks[1].nama, "Daffa"); 
   jumlah_asprak = 2;
 }
@@ -75,7 +76,7 @@ void input_jadwal_asprak() {
   }
 
   int index_asprak = pilihan_asprak - 1;
-  printf("Asprak terpilih: %s\n", aspraks[index_asprak].nama);
+  printf("asprak terpilih: %s\n", aspraks[index_asprak].nama);
 
   printf("\nPilih Mata Kuliah yang diajar:\n");
     for(int i = 0; i < jumlah_mk; i++) {
@@ -91,20 +92,28 @@ void input_jadwal_asprak() {
         return;
     }
 
-    printf("Tanggal (DD-MM-YYYY): ");
+    strcpy(aspraks[index_asprak].mata_kuliah, mata_kuliah_list[pilihan_mk - 1]);
+
+    printf("\nBatas Kuota Mahasiswa (Angka)\t: ");
+    scanf("%d", &aspraks[index_asprak].kuota);
+
+    printf("Tanggal (DD-MM-YYYY)   \t\t: ");
     scanf("%s", aspraks[index_asprak].tanggal);
 
-    printf("Jam (HH:MM): ");
+    printf("Jam (HH:MM)   \t\t\t: ");
     scanf("%s", aspraks[index_asprak].jam);
 
-    printf("Tempat: ");
+    printf("Tempat   \t\t\t: ");
     getchar();
     fgets(aspraks[index_asprak].tempat, 20, stdin);
 
-    printf("\nyang di inputkan\n");
-    printf("%s\n", aspraks[index_asprak].tanggal);
-    printf("%s\n", aspraks[index_asprak].jam);
-    printf("%s", aspraks[index_asprak].tempat);
+    printf("\n--- Jadwal berhasil diinput! ---\n");
+    printf("Asprak       : %s\n", aspraks[index_asprak].nama);
+    printf("Mata Kuliah  : %s\n", aspraks[index_asprak].mata_kuliah);
+    printf("Kuota        : %d\n", aspraks[index_asprak].kuota);
+    printf("Tanggal      : %s\n", aspraks[index_asprak].tanggal);
+    printf("Jam          : %s\n", aspraks[index_asprak].jam);
+    printf("Tempat       : %s\n", aspraks[index_asprak].tempat);
 }
 
 
