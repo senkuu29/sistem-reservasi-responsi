@@ -40,8 +40,7 @@ int jumlah_mk = 5;
 void init_data_asprak();
 void input_jadwal_asprak();
 void tampilkan_jadwal_asprak();
-
-
+void hapus_data_mahasiswa();
 
 void init_data_asprak() {
   strcpy(aspraks[0].nama, "Deden");
@@ -143,13 +142,18 @@ void input_jadwal_asprak() {
     printf("Tempat       : %s\n", aspraks[index_asprak].tempat);
 }
 
+void hapus_data_mahasiswa() {
+
+}
+
 void tampilkan_menu () {
   printf("\n=== SISTEM PENDAFTARAN RESPONSI ===\n");
   printf("1. Lihat Jadwal Asprak\n");
   printf("2. Daftar Responsi (Mahasiswa)\n");
   printf("3. Cari Mahasiswa\n");
   printf("4. Input Jadwal Responsi (Asprak)\n");
-  printf("5. Keluar\n");
+  printf("5. Hapus data Mahasiswa\n");
+  printf("6. Keluar\n");
   printf("Pilihan Anda: ");
 }
 
@@ -181,12 +185,15 @@ int main() {
             input_jadwal_asprak();
             break;
           case 5:
+            hapus_data_mahasiswa();
+            break;
+          case 6:
             printf("\nTerima kasih! Program selesai.\n");
             break;
           default:
           printf("Pilihan tidak valid! Silakan pilih 1-5.\n");
     }
-  } while (pilihan != 5);
+  } while (pilihan != 6);
   
   return 0;
 }
