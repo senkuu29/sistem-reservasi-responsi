@@ -67,7 +67,20 @@ void tampilkan_jadwal_asprak() {
 }
 
 void daftar_responsi() {
+    printf("\n=== PENDAFTARAN RESPONSI ===\n");
+    
+    // Input data mahasiswa
+    Mahasiswa mhs_baru;
+    
+    printf("Masukkan nama mahasiswa: ");
+    getchar(); // Clear buffer
+    fgets(mhs_baru.nama, MAX_NAMA, stdin);
+    mhs_baru.nama[strcspn(mhs_baru.nama, "\n")] = 0;
 
+    printf("\nPilih Mata Kuliah:\n");
+    for(int i = 0; i < jumlah_mk; i++) {
+        printf("%d. %s\n", i+1, mata_kuliah_list[i]);
+    }
 }
 
 void tampilkan_cari_mahasiswa() {
@@ -113,9 +126,12 @@ void input_jadwal_asprak() {
 
   int pilihan_mk;
     printf("Pilihan (1-%d): ", jumlah_mk);
-    scanf("%d", &pilihan_mk);
 
-    if(pilihan_mk < 1 || pilihan_mk > jumlah_mk) {
+    if (scanf("%d", &pilihan_mk) != 1) {
+        printf("Pilihan tidak valid! Harap masukkan angka 1-%d.\n", jumlah_mk);
+        while (getchar() != '\n' && !feof(stdin));
+        return; 
+    } else if(pilihan_mk < 1 || pilihan_mk > jumlah_mk) {
         printf("Pilihan tidak valid!\n");
         return;
     }
