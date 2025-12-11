@@ -151,10 +151,10 @@ void hapus_data_mahasiswa() {
 
 void tampilkan_menu () {
   printf("\n=== SISTEM PENDAFTARAN RESPONSI ===\n");
-  printf("1. Lihat Jadwal Asprak\n");
+  printf("1. Input Jadwal Responsi (Asprak)\n");
   printf("2. Daftar Responsi (Mahasiswa)\n");
   printf("3. Cari Mahasiswa\n");
-  printf("4. Input Jadwal Responsi (Asprak)\n");
+  printf("4. Lihat Jadwal Asprak\n");
   printf("5. Hapus data Mahasiswa\n");
   printf("6. Keluar\n");
   printf("Pilihan Anda: ");
@@ -176,7 +176,7 @@ int main() {
 
       switch (pilihan) {
           case 1:
-            tampilkan_jadwal_asprak();
+            input_jadwal_asprak();
             break;
           case 2:
             daftar_responsi();
@@ -185,7 +185,7 @@ int main() {
             tampilkan_cari_mahasiswa();
             break;
           case 4:
-            input_jadwal_asprak();
+            tampilkan_jadwal_asprak();
             break;
           case 5:
             hapus_data_mahasiswa();
