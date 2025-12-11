@@ -49,9 +49,9 @@ void init_data_asprak() {
 }
 
 void tampilkan_jadwal_asprak() {
-  printf("================================================================\n");
+  printf("=================================================================\n");
   printf("                       JADWAL ASPRAK\n");
-  printf("================================================================\n");
+  printf("=================================================================\n");
   printf("| Nama Asprak | Mata Kuliah | Kuota | Tanggal    | Jam   | Tempat\n");
     for(int i = 0; i < jumlah_asprak; i++) {
         if(strlen(aspraks[i].mata_kuliah) > 0) {
@@ -82,14 +82,17 @@ void input_jadwal_asprak() {
     printf("%d. %s\n",i+1, aspraks[i].nama);
   }
 
-  int pilihan_asprak;
-  printf("Pilihan (1-%d): ", jumlah_asprak);
-  scanf("%d", &pilihan_asprak);
+   int pilihan_asprak;
+    printf("Pilihan (1-%d): ", jumlah_asprak);
 
-  if(pilihan_asprak < 1 || pilihan_asprak > jumlah_asprak) {
-      printf("Pilihan tidak valid!\n");
-      return;
-  }
+    if (scanf("%d", &pilihan_asprak) != 1) {
+        printf("Pilihan tidak valid! Harap masukkan angka 1-%d.\n", jumlah_asprak);
+        while (getchar() != '\n' && !feof(stdin));
+        return; 
+    } else if(pilihan_asprak < 1 || pilihan_asprak > jumlah_asprak) {
+        printf("Pilihan tidak valid!\n");
+        return;
+    }
 
   int index_asprak = pilihan_asprak - 1;
   printf("asprak terpilih: %s\n", aspraks[index_asprak].nama);
