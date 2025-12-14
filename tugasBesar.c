@@ -37,11 +37,6 @@ char mata_kuliah_list[][MAX_MK] = {
 int jumlah_mk = 5;
 
 
-void init_data_asprak();
-void input_jadwal_asprak();
-void tampilkan_jadwal_asprak();
-void hapus_data_mahasiswa();
-
 void init_data_asprak() {
   strcpy(aspraks[0].nama, "Deden");
   strcpy(aspraks[1].nama, "Daffa"); 
@@ -73,14 +68,31 @@ void daftar_responsi() {
     Mahasiswa mhs_baru;
     
     printf("Masukkan nama mahasiswa: ");
-    getchar(); // Clear buffer
-    fgets(mhs_baru.nama, MAX_NAMA, stdin);
-    mhs_baru.nama[strcspn(mhs_baru.nama, "\n")] = 0;
+    getchar();
+    scanf("%49[^\n]", mhs_baru.nama);
 
     printf("\nPilih Mata Kuliah:\n");
     for(int i = 0; i < jumlah_mk; i++) {
         printf("%d. %s\n", i+1, mata_kuliah_list[i]);
     }
+
+    int pilihan_mk;
+    printf("Pilihan (1-%d): ", jumlah_mk);
+
+    if (scanf("%d", &pilihan_mk) != 1) {
+        printf("Pilihan tidak valid! Harap masukkan angka 1-%d.\n", jumlah_mk);
+        while (getchar() != '\n' && !feof(stdin));
+        return; 
+    } else if(pilihan_mk < 1 || pilihan_mk > jumlah_mk) {
+        printf("Pilihan tidak valid!\n");
+        return;
+    }
+    
+    strcpy(mhs_baru.mata_kuliah_dipilih, mata_kuliah_list[pilihan_mk-1]);
+
+    printf("\n=== PENDAFTARAN BERHASIL ===\n");
+    printf("Nama Mahasiswa  : %s\n", mhs_baru.nama);
+    printf("Mata Kuliah     : %s\n", mhs_baru.mata_kuliah_dipilih);
 }
 
 void tampilkan_cari_mahasiswa() {
@@ -140,6 +152,7 @@ void input_jadwal_asprak() {
     strcpy(aspraks[index_asprak].mata_kuliah, mata_kuliah_list[pilihan_mk - 1]);
 
     printf("\nBatas Kuota Mahasiswa (Angka)\t: ");
+
     scanf("%d", &aspraks[index_asprak].kuota);
 
     printf("Tanggal (DD-MM-YYYY)   \t\t: ");
