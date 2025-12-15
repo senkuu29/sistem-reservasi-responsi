@@ -24,6 +24,9 @@ typedef struct {
     char jam[6];
 } Mahasiswa;
 
+Mahasiswa daftar_mahasiswa[MAX_MAHASISWA];
+int jumlah_mahasiswa = 0;
+
 Asprak aspraks[MAX_ASPRAK];
 int jumlah_asprak = 0;
 
@@ -35,7 +38,6 @@ char mata_kuliah_list[][MAX_MK] = {
     "pbo"
 };
 int jumlah_mk = 5;
-
 
 void init_data_asprak() {
   strcpy(aspraks[0].nama, "Deden");
@@ -110,7 +112,7 @@ void daftar_responsi() {
     }
 
     if(jumlah_tersedia == 0) {
-        printf("Tidak ada asprak yang tersedia untuk mata kuliah ini atau kuota sudah penuh!\n");
+        printf("Tidak ada asprak yang tersedia untuk mata kuliah ini\n");
         return;
     }
 
@@ -138,6 +140,17 @@ void daftar_responsi() {
     //  Kurangi kuota asprak
     aspraks[index_asprak_terpilih].kuota--;
 
+    // Cek apakah array mahasiswa masih muat
+    if (jumlah_mahasiswa < MAX_MAHASISWA) {
+        // Salin data mhs_baru ke array global
+        daftar_mahasiswa[jumlah_mahasiswa] = mhs_baru;
+        jumlah_mahasiswa++;
+        
+        // Catatan: Struct copy (daftar_mahasiswa[i] = mhs_baru) berlaku di C, 
+        // namun untuk amannya, Anda juga bisa menyalin per bidang.
+    } else {
+        printf("\nPERINGATAN: Array pendaftaran mahasiswa sudah penuh! Data tidak tersimpan.\n");
+    }
 
     printf("\n=== PENDAFTARAN BERHASIL ===\n");
     printf("Nama Mahasiswa   : %s\n", mhs_baru.nama);
@@ -229,7 +242,71 @@ void input_jadwal_asprak() {
 }
 
 void hapus_data_mahasiswa() {
+    printf("\n=== HAPUS DATA MAHASISWA RESPONSI ===\n");
+    
+    if (jumlah_mahasiswa == 0) {
+        printf("Tidak ada data mahasiswa yang terdaftar.\n");
+        return;
+    }
 
+    char nama_hapus[MAX_NAMA];
+    printf("Masukkan Nama Mahasiswa yang akan dihapus: ");
+    while (getchar() != '\n' && !feof(stdin));
+    scanf("%49[^\n]", nama_hapus);
+
+    int ditemukan = 0;
+    int index_hapus = -1;
+
+    // 1. Cari data mahasiswa
+    for (int i = 0; i < jumlah_mahasiswa; i++) {
+        // Gunakan strcasecmp untuk case-insensitive comparison (opsional)
+        // Jika tidak, gunakan strcmp untuk case-sensitive
+        if (strcmp(daftar_mahasiswa[i].nama, nama_hapus) == 0) {
+            index_hapus = i;
+            ditemukan = 1;
+            break; 
+        }
+    }
+
+    if (!ditemukan) {
+        printf("Mahasiswa dengan nama '%s' tidak ditemukan dalam daftar.\n", nama_hapus);
+        return;
+    }
+
+    // 2. Data ditemukan, tampilkan detail dan konfirmasi
+    printf("\n--- Data Mahasiswa yang ditemukan ---\n");
+    printf("Nama Mahasiswa : %s\n", daftar_mahasiswa[index_hapus].nama);
+
+    char konfirmasi;
+    printf("Apakah Anda yakin ingin menghapus data ini? (y/t): ");
+    scanf(" %c", &konfirmasi); // Perhatikan spasi di depan %c untuk mengabaikan whitespace
+
+    if (tolower(konfirmasi) == 'y') {
+        
+        // 3. Tambahkan kuota asprak kembali (jika perlu)
+        // Cari Asprak yang bersangkutan berdasarkan nama
+        for (int i = 0; i < jumlah_asprak; i++) {
+            if (strcmp(aspraks[i].nama, daftar_mahasiswa[index_hapus].asprak) == 0) {
+                aspraks[i].kuota++;
+                printf("\n[informasi] Kuota Asprak %s dikembalikan menjadi %d.\n", 
+                       aspraks[i].nama, aspraks[i].kuota);
+                break;
+            }
+        }
+
+        // 4. Geser semua elemen setelah indeks_hapus ke depan
+        for (int i = index_hapus; i < jumlah_mahasiswa - 1; i++) {
+            // Menyalin struct Mahasiswa dari indeks i+1 ke i
+            daftar_mahasiswa[i] = daftar_mahasiswa[i + 1];
+        }
+
+        // Kurangi jumlah mahasiswa
+        jumlah_mahasiswa--;
+
+        printf("\n--- Data Mahasiswa '%s' berhasil dihapus. ---\n", nama_hapus);
+    } else {
+        printf("\nPenghapusan data dibatalkan.\n");
+    }
 }
 
 void tampilkan_menu () {
