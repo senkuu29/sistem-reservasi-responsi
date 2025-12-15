@@ -68,7 +68,7 @@ void daftar_responsi() {
     Mahasiswa mhs_baru;
     
     printf("Masukkan nama mahasiswa: ");
-    getchar();
+    while (getchar() != '\n' && !feof(stdin)); 
     scanf("%49[^\n]", mhs_baru.nama);
 
     printf("\nPilih Mata Kuliah:\n");
@@ -90,9 +90,63 @@ void daftar_responsi() {
     
     strcpy(mhs_baru.mata_kuliah_dipilih, mata_kuliah_list[pilihan_mk-1]);
 
+    printf("\nAsprak yang tersedia untuk %s:\n", mhs_baru.mata_kuliah_dipilih);
+    
+    int asprak_yang_tersedia[MAX_ASPRAK]; 
+    int jumlah_tersedia = 0;
+
+    // Cari dan tampilkan semua asprak yang mengajar MK ini
+    for(int i = 0; i < jumlah_asprak; i++) {
+        if(strcmp(aspraks[i].mata_kuliah, mhs_baru.mata_kuliah_dipilih) == 0 && aspraks[i].kuota > 0) {
+            asprak_yang_tersedia[jumlah_tersedia] = i;
+            printf("%d. %s - %s - %s - %s\n", 
+                     jumlah_tersedia + 1,
+                     aspraks[i].nama, 
+                     aspraks[i].tanggal, 
+                     aspraks[i].jam, 
+                     aspraks[i].tempat);
+            jumlah_tersedia++;
+        }
+    }
+
+    if(jumlah_tersedia == 0) {
+        printf("Tidak ada asprak yang tersedia untuk mata kuliah ini atau kuota sudah penuh!\n");
+        return;
+    }
+
+    // --- pemilihan Asprak di sini ---
+    int pilihan_asprak;
+    printf("Pilih Asprak (1-%d): ", jumlah_tersedia);
+    
+    if (scanf("%d", &pilihan_asprak) != 1) {
+        printf("Pilihan tidak valid! Harap masukkan angka 1-%d.\n", jumlah_tersedia);
+        while (getchar() != '\n' && !feof(stdin));
+        return; 
+    } else if(pilihan_asprak < 1 || pilihan_asprak > jumlah_tersedia) {
+        printf("Pilihan tidak valid!\n");
+        return;
+    }
+
+    // Ambil indeks asprak yang sebenarnya dari array asprak_yang_tersedia
+    int index_asprak_terpilih = asprak_yang_tersedia[pilihan_asprak - 1];
+    
+    // Simpan data Asprak yang dipilih ke struct Mahasiswa
+    strcpy(mhs_baru.asprak, aspraks[index_asprak_terpilih].nama);
+    strcpy(mhs_baru.tanggal, aspraks[index_asprak_terpilih].tanggal);
+    strcpy(mhs_baru.jam, aspraks[index_asprak_terpilih].jam);
+
+    //  Kurangi kuota asprak
+    aspraks[index_asprak_terpilih].kuota--;
+
+
     printf("\n=== PENDAFTARAN BERHASIL ===\n");
-    printf("Nama Mahasiswa  : %s\n", mhs_baru.nama);
-    printf("Mata Kuliah     : %s\n", mhs_baru.mata_kuliah_dipilih);
+    printf("Nama Mahasiswa   : %s\n", mhs_baru.nama);
+    printf("Mata Kuliah      : %s\n", mhs_baru.mata_kuliah_dipilih);
+    printf("Asprak Terpilih  : %s\n", mhs_baru.asprak);
+    printf("Tanggal Responsi : %s\n", mhs_baru.tanggal);
+    printf("Jam Responsi     : %s\n", mhs_baru.jam);
+    printf("Tempat Responsi  : %s\n", aspraks[index_asprak_terpilih].tempat);
+    printf("Sisa Kuota Asprak: %d\n", aspraks[index_asprak_terpilih].kuota);
 }
 
 void tampilkan_cari_mahasiswa() {
