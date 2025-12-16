@@ -195,9 +195,9 @@ void tampilkan_cari_mahasiswa() {
 void tampilkan_semua_mahasiswa() {
     printf("\n                        === DAFTAR MAHASISWA RESPONSI ===\n");
 
-    printf("-----------------------------------------------------------------------------------------\n");
-    printf("| Nama Mahasiswa       | Mata Kuliah | Asprak | Tanggal    | Jam   | Status Kuota Asprak \n");
-    printf("-----------------------------------------------------------------------------------------\n");
+    printf("--------------------------------------------------------------------\n");
+    printf("| Nama Mahasiswa       | Mata Kuliah | Asprak | Tanggal    | Jam    \n");
+    printf("--------------------------------------------------------------------\n");
 
     for (int i = 0; i < jumlah_mahasiswa; i++) {
         // Cari kuota asprak saat ini untuk menampilkan status kuota
@@ -209,13 +209,12 @@ void tampilkan_semua_mahasiswa() {
             }
         }
         
-        printf("| %-20s | %-11s | %-6s | %-10s | %-5s | %-19d \n",
+        printf("| %-20s | %-11s | %-6s | %-10s | %-5s  \n",
                daftar_mahasiswa[i].nama,
                daftar_mahasiswa[i].mata_kuliah_dipilih,
                daftar_mahasiswa[i].asprak,
                daftar_mahasiswa[i].tanggal,
-               daftar_mahasiswa[i].jam,
-               kuota_saat_ini);
+               daftar_mahasiswa[i].jam);
     }
 }
 
@@ -362,6 +361,25 @@ void hapus_data_mahasiswa() {
     }
 }
 
+void bubbleSortMahasiswa() {
+    int i, j;
+    Mahasiswa temp;
+    
+    // Bubble Sort membandingkan dua elemen bersebelahan dan menukar jika urutan salah. [cite: 261]
+    for (i = 0; i < jumlah_mahasiswa - 1; i++) {
+        for (j = 0; j < jumlah_mahasiswa - 1 - i; j++) {
+            // Menggunakan strcmp() untuk perbandingan string.
+            // strcmp > 0 berarti daftar_mahasiswa[j].nama secara alfabetis lebih besar dari daftar_mahasiswa[j+1].nama
+            if (strcmp(daftar_mahasiswa[j].nama, daftar_mahasiswa[j+1].nama) > 0) {
+                // Lakukan penukaran (swap) seluruh struct Mahasiswa
+                temp = daftar_mahasiswa[j];
+                daftar_mahasiswa[j] = daftar_mahasiswa[j+1];
+                daftar_mahasiswa[j+1] = temp;
+            }
+        }
+    }
+}
+
 void tampilkan_menu () {
   printf("\n=== SISTEM PENDAFTARAN RESPONSI ===\n");
   printf("1. Input Jadwal Responsi (Asprak)\n");
@@ -370,7 +388,8 @@ void tampilkan_menu () {
   printf("4. Lihat Jadwal Asprak\n");
   printf("5. Lihat Daftar Mahasiswa\n");
   printf("6. Hapus data Mahasiswa\n");
-  printf("7. Keluar\n");
+  printf("7. Sort Mahasiswa (Bubble Sort Nama A-Z)\n");
+  printf("8. Keluar\n");
   printf("Pilihan Anda: ");
 }
 
@@ -408,12 +427,21 @@ int main() {
             hapus_data_mahasiswa();
             break;
           case 7:
+            if (jumlah_mahasiswa == 0) {
+                printf("\nTidak ada mahasiswa untuk diurutkan.\n");
+            } else {
+                bubbleSortMahasiswa();
+                printf("\n--- Data Mahasiswa berhasil diurutkan berdasarkan Nama (A-Z) menggunakan Bubble Sort. ---\n");
+                tampilkan_semua_mahasiswa(); 
+            }
+            break;
+          case 8:
             printf("\nTerima kasih! Program selesai.\n");
             break;
           default:
-          printf("Pilihan tidak valid! Silakan pilih 1-5.\n");
+          printf("Pilihan tidak valid! Silakan pilih 1-8.\n");
     }
-  } while (pilihan != 7);
+  } while (pilihan != 8);
   
   return 0;
 }
