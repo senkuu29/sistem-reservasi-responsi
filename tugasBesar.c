@@ -192,6 +192,33 @@ void tampilkan_cari_mahasiswa() {
     }
 }
 
+void tampilkan_semua_mahasiswa() {
+    printf("\n                        === DAFTAR MAHASISWA RESPONSI ===\n");
+
+    printf("-----------------------------------------------------------------------------------------\n");
+    printf("| Nama Mahasiswa       | Mata Kuliah | Asprak | Tanggal    | Jam   | Status Kuota Asprak \n");
+    printf("-----------------------------------------------------------------------------------------\n");
+
+    for (int i = 0; i < jumlah_mahasiswa; i++) {
+        // Cari kuota asprak saat ini untuk menampilkan status kuota
+        int kuota_saat_ini = -1;
+        for (int j = 0; j < jumlah_asprak; j++) {
+            if (strcmp(aspraks[j].nama, daftar_mahasiswa[i].asprak) == 0) {
+                kuota_saat_ini = aspraks[j].kuota;
+                break;
+            }
+        }
+        
+        printf("| %-20s | %-11s | %-6s | %-10s | %-5s | %-19d \n",
+               daftar_mahasiswa[i].nama,
+               daftar_mahasiswa[i].mata_kuliah_dipilih,
+               daftar_mahasiswa[i].asprak,
+               daftar_mahasiswa[i].tanggal,
+               daftar_mahasiswa[i].jam,
+               kuota_saat_ini);
+    }
+}
+
 void input_jadwal_asprak() {
   printf("\n=== INPUT JADWAL RESPONSI===\n");
 
@@ -341,8 +368,9 @@ void tampilkan_menu () {
   printf("2. Daftar Responsi (Mahasiswa)\n");
   printf("3. Cari Mahasiswa\n");
   printf("4. Lihat Jadwal Asprak\n");
-  printf("5. Hapus data Mahasiswa\n");
-  printf("6. Keluar\n");
+  printf("5. Lihat Daftar Mahasiswa\n");
+  printf("6. Hapus data Mahasiswa\n");
+  printf("7. Keluar\n");
   printf("Pilihan Anda: ");
 }
 
@@ -374,15 +402,18 @@ int main() {
             tampilkan_jadwal_asprak();
             break;
           case 5:
-            hapus_data_mahasiswa();
+            tampilkan_semua_mahasiswa();
             break;
           case 6:
+            hapus_data_mahasiswa();
+            break;
+          case 7:
             printf("\nTerima kasih! Program selesai.\n");
             break;
           default:
           printf("Pilihan tidak valid! Silakan pilih 1-5.\n");
     }
-  } while (pilihan != 6);
+  } while (pilihan != 7);
   
   return 0;
 }
