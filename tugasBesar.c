@@ -145,11 +145,8 @@ void daftar_responsi() {
         // Salin data mhs_baru ke array global
         daftar_mahasiswa[jumlah_mahasiswa] = mhs_baru;
         jumlah_mahasiswa++;
-        
-        // Catatan: Struct copy (daftar_mahasiswa[i] = mhs_baru) berlaku di C, 
-        // namun untuk amannya, Anda juga bisa menyalin per bidang.
     } else {
-        printf("\nPERINGATAN: Array pendaftaran mahasiswa sudah penuh! Data tidak tersimpan.\n");
+        printf("\nPERINGATAN: pendaftaran mahasiswa sudah penuh! Data tidak tersimpan.\n");
     }
 
     printf("\n=== PENDAFTARAN BERHASIL ===\n");
