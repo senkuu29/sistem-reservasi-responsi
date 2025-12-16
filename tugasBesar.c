@@ -160,7 +160,36 @@ void daftar_responsi() {
 }
 
 void tampilkan_cari_mahasiswa() {
+    printf("\n=== CARI DATA MAHASISWA RESPONSI ===\n");
 
+    char nama_cari[MAX_NAMA];
+    printf("Masukkan Nama Mahasiswa yang ingin dicari: ");
+    while (getchar() != '\n' && !feof(stdin));
+    scanf("%49[^\n]", nama_cari);
+
+    int index_ditemukan = -1; 
+
+    // Sequential Search (Pencarian Berurutan)
+    for (int i = 0; i < jumlah_mahasiswa; i++) {
+        if (strcmp(daftar_mahasiswa[i].nama, nama_cari) == 0) {
+            index_ditemukan = i; 
+            break; 
+        }
+    }
+
+    // Tampilkan hasil pencarian
+    if (index_ditemukan != -1) {
+        // Data ditemukan
+        printf("\n--- Mahasiswa Ditemukan ---\n");
+        printf("Nama Mahasiswa   : %s\n", daftar_mahasiswa[index_ditemukan].nama);
+        printf("Mata Kuliah      : %s\n", daftar_mahasiswa[index_ditemukan].mata_kuliah_dipilih);
+        printf("Asprak Terpilih  : %s\n", daftar_mahasiswa[index_ditemukan].asprak);
+        printf("Tanggal Responsi : %s\n", daftar_mahasiswa[index_ditemukan].tanggal);
+        printf("Jam Responsi     : %s\n", daftar_mahasiswa[index_ditemukan].jam);
+    } else {
+        // Data tidak ditemukan
+        printf("\nMahasiswa dengan nama '%s' tidak ditemukan dalam daftar.\n", nama_cari);
+    }
 }
 
 void input_jadwal_asprak() {
