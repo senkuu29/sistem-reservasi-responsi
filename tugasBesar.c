@@ -387,8 +387,8 @@ void tampilkan_menu () {
   printf("3. Cari Mahasiswa\n");
   printf("4. Lihat Jadwal Asprak\n");
   printf("5. Lihat Daftar Mahasiswa\n");
-  printf("6. Hapus data Mahasiswa\n");
-  printf("7. Sort Mahasiswa (Bubble Sort Nama A-Z)\n");
+  printf("6. Sort Mahasiswa (Bubble Sort Nama A-Z)\n");
+  printf("7. Hapus data Mahasiswa\n");
   printf("8. Keluar\n");
   printf("Pilihan Anda: ");
 }
@@ -424,9 +424,6 @@ int main() {
             tampilkan_semua_mahasiswa();
             break;
           case 6:
-            hapus_data_mahasiswa();
-            break;
-          case 7:
             if (jumlah_mahasiswa == 0) {
                 printf("\nTidak ada mahasiswa untuk diurutkan.\n");
             } else {
@@ -434,6 +431,9 @@ int main() {
                 printf("\n--- Data Mahasiswa berhasil diurutkan berdasarkan Nama (A-Z) menggunakan Bubble Sort. ---\n");
                 tampilkan_semua_mahasiswa(); 
             }
+            break;
+            case 7:
+            hapus_data_mahasiswa();
             break;
           case 8:
             printf("\nTerima kasih! Program selesai.\n");
